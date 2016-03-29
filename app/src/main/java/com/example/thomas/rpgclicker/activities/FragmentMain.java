@@ -5,12 +5,11 @@ package com.example.thomas.rpgclicker.activities;
  */
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.thomas.rpgclicker.Monster;
 import com.example.thomas.rpgclicker.Player;
@@ -31,9 +30,19 @@ public class FragmentMain extends Fragment {
     public static MoneyHandler mh;
 
     public static MonsterThread mt;
+    public static Thread thread;
 
     public FragmentMain() {
+        if(mh == null) mh = new MoneyHandler();
+        if(player == null) player = new Player(mh);
+        if(monster == null) monster = new Monster(player);
 
+        if(mt == null){
+            mt = new MonsterThread();
+            mt.init(monster);
+        }
+        thread = new Thread(mt);
+        thread.start();
     }
 
     @Override
@@ -42,13 +51,6 @@ public class FragmentMain extends Fragment {
 
         ViewGroup viewg = (ViewGroup)inflater.inflate(R.layout.fragment_layout_main, container,
                 false);
-/*
-        ivIcon = (ImageView) view.findViewById(R.id.frag1_icon);
-        tvItemName = (TextView) view.findViewById(R.id.frag1_text);
-
-        tvItemName.setText(getArguments().getString(ITEM_NAME));
-        ivIcon.setImageDrawable(view.getResources().getDrawable(
-                getArguments().getInt(IMAGE_RESOURCE_ID)));*/
 
         panel = new DrawingPanel(getActivity(), this);
         panel.setPadding(0,0,0,0);
@@ -56,14 +58,6 @@ public class FragmentMain extends Fragment {
         panel.setMinimumHeight(400);
 
         viewg.addView(panel);
-
-        mh = new MoneyHandler();
-        player = new Player(mh);
-        monster = new Monster(player);
-
-        mt = new MonsterThread();
-        mt.init(monster);
-        new Thread(mt).start();
 
         return viewg;
     }
@@ -78,6 +72,25 @@ public class FragmentMain extends Fragment {
 
     public Button getSpellButton(){
         return (Button) getActivity().findViewById(R.id.spellAttack);
+    }
+
+    public void stop(){
+        mt.stop();
+        Log.d("MTHREAD", "Stopping");
+    }
+
+    public void pause(){
+        mt.pause();
+        Log.d("MTHREAD", "Pausing..");
+    }
+
+    public boolean isRunning(){
+        return mt.isRunning();
+    }
+
+    public void continueThread(){
+        mt.continueThread();
+        Log.d("MTHREAD", "Continue..");
     }
 
 }

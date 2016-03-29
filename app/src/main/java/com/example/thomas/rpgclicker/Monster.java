@@ -22,7 +22,7 @@ public class Monster {
     public void lvlUp(){
         lvl++;
         hp = (int)(lvl * 5 + 100);
-        dmg = lvl * 2;
+        dmg = lvl + 2;
         loot = lvl + 5;
     }
 

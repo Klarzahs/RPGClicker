@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends FragmentActivity {
-    public final static String LVLUP_MESSAGE = "com.example.thomas.rpgclicker.LVLUP";
 
     private FragmentMain fmain;
 
@@ -109,23 +108,18 @@ public class MainActivity extends FragmentActivity {
         FragmentMain.panel.spellHeal();
     }
 
-    public void openLevelUp(){
-       /* Intent myIntent = new Intent(MainActivity.this, ItemListActivity.class);
-        //myIntent.putExtra("key", value); //Optional parameters
-        MainActivity.this.startActivity(myIntent); */
-    }
-
-    public void SelectItem(int possition) {
+    public void SelectItem(int position) {
 
         Fragment fragment = null;
         Bundle args = new Bundle();
-        switch (possition) {
+        switch (position) {
             case 0:
                 if (fmain == null)
                     fmain = new FragmentMain();
-                args.putString(FragmentMain.ITEM_NAME, dataList.get(possition)
+                fmain.continueThread();
+                args.putString(FragmentMain.ITEM_NAME, dataList.get(position)
                         .getItemName());
-                args.putInt(FragmentMain.IMAGE_RESOURCE_ID, dataList.get(possition)
+                args.putInt(FragmentMain.IMAGE_RESOURCE_ID, dataList.get(position)
                         .getImgResID());
 
                 fmain.setArguments(args);
@@ -133,50 +127,52 @@ public class MainActivity extends FragmentActivity {
                 frgManager.beginTransaction().replace(R.id.content_frame, fmain)
                         .commit();
 
-                mDrawerList.setItemChecked(possition, true);
-                setTitle(dataList.get(possition).getItemName());
+                mDrawerList.setItemChecked(position, true);
+                setTitle(dataList.get(position).getItemName());
                 mDrawerLayout.closeDrawer(mDrawerList);
 
                 return;
             case 1:
                 fragment = new FragmentWeapons();
-                args.putString(FragmentWeapons.ITEM_NAME, dataList.get(possition)
+                args.putString(FragmentWeapons.ITEM_NAME, dataList.get(position)
                         .getItemName());
-                args.putInt(FragmentWeapons.IMAGE_RESOURCE_ID, dataList.get(possition)
+                args.putInt(FragmentWeapons.IMAGE_RESOURCE_ID, dataList.get(position)
                         .getImgResID());
                 break;
             case 2:
                 fragment = new FragmentWeapons();
-                args.putString(FragmentWeapons.ITEM_NAME, dataList.get(possition)
+                args.putString(FragmentWeapons.ITEM_NAME, dataList.get(position)
                         .getItemName());
-                args.putInt(FragmentWeapons.IMAGE_RESOURCE_ID, dataList.get(possition)
+                args.putInt(FragmentWeapons.IMAGE_RESOURCE_ID, dataList.get(position)
                         .getImgResID());
                 break;
             case 3:
                 fragment = new FragmentStats();
-                args.putString(FragmentStats.ITEM_NAME, dataList.get(possition)
+                args.putString(FragmentStats.ITEM_NAME, dataList.get(position)
                         .getItemName());
-                args.putInt(FragmentStats.IMAGE_RESOURCE_ID, dataList.get(possition)
+                args.putInt(FragmentStats.IMAGE_RESOURCE_ID, dataList.get(position)
                         .getImgResID());
                 break;
             case 4:
                 fragment = new FragmentMain();
-                args.putString(FragmentMain.ITEM_NAME, dataList.get(possition)
+                args.putString(FragmentMain.ITEM_NAME, dataList.get(position)
                         .getItemName());
-                args.putInt(FragmentMain.IMAGE_RESOURCE_ID, dataList.get(possition)
+                args.putInt(FragmentMain.IMAGE_RESOURCE_ID, dataList.get(position)
                         .getImgResID());
                 break;
             default:
                 break;
         }
 
+        fmain.pause();
+
         fragment.setArguments(args);
         FragmentManager frgManager = getFragmentManager();
         frgManager.beginTransaction().replace(R.id.content_frame, fragment)
                 .commit();
 
-        mDrawerList.setItemChecked(possition, true);
-        setTitle(dataList.get(possition).getItemName());
+        mDrawerList.setItemChecked(position, true);
+        setTitle(dataList.get(position).getItemName());
         mDrawerLayout.closeDrawer(mDrawerList);
 
     }
