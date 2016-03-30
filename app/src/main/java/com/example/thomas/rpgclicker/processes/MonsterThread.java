@@ -3,6 +3,7 @@ package com.example.thomas.rpgclicker.processes;
 import android.util.Log;
 
 import com.example.thomas.rpgclicker.Monster;
+import com.example.thomas.rpgclicker.Player;
 
 /**
  * Created by Thomas on 28.03.2016.
@@ -34,6 +35,7 @@ public class MonsterThread implements Runnable{
             while(!paused) {
                 if (System.currentTimeMillis() - lastTime >= offset) {
                     monster.attack();
+                    monster.getAttacked(Player.dpslvl);
                     lastTime = System.currentTimeMillis();
                     //Log.d("MTHREAD", "Monster attacked");
                 }

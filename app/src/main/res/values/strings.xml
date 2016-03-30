@@ -14,4 +14,14 @@
 
     <string name="drawer_open">Open drawer</string>
     <string name="drawer_close">Close drawer</string>
+
+    <string name="bp1">+1</string>
+    <string name="bp5">+5</string>
+    <string name="bp10">10</string>
+
+    <string name="bDPS">Damage per second</string>
+    <string name="bHPS">Heal per second</string>
+    <string name="bMeeleDamage">Meele Damage</string>
+    <string name="bSpellDamage">Spell Damage</string>
+    <string name="bSpellHeal">Spell Heal</string>
 </resources>

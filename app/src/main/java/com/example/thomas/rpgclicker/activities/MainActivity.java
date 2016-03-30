@@ -32,6 +32,7 @@ import java.util.List;
 public class MainActivity extends FragmentActivity {
 
     private FragmentMain fmain;
+    private FragmentStats fstats;
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -58,9 +59,9 @@ public class MainActivity extends FragmentActivity {
                 GravityCompat.START);
 
         dataList.add(new DrawerItem("Main", R.drawable.main));
-        dataList.add(new DrawerItem("Stats", R.drawable.stats));
         dataList.add(new DrawerItem("Weapons", R.drawable.weapons));
         dataList.add(new DrawerItem("Armor", R.drawable.armor));
+        dataList.add(new DrawerItem("Stats", R.drawable.stats));
         dataList.add(new DrawerItem("Leaderboard", R.drawable.leaderboard));
 
         adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item,
@@ -96,6 +97,8 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    // deferer onCLickListener
+    // to Fragment Main:
     public void meeleAttack(View v){
         FragmentMain.panel.meeleAttack();
     }
@@ -107,6 +110,37 @@ public class MainActivity extends FragmentActivity {
     public void spellHeal(View v){
         FragmentMain.panel.spellHeal();
     }
+
+    // to Fragment Stats:
+    public void addDPS1(View v){FragmentMain.player.addDPS1(v);}
+
+    public void addDPS5(View v){FragmentMain.player.addDPS5(v);}
+
+    public void addDPS10(View v){FragmentMain.player.addDPS10(v);}
+
+    public void addHPS1(View v){FragmentMain.player.addHPS1(v);}
+
+    public void addHPS5(View v){FragmentMain.player.addHPS5(v);}
+
+    public void addHPS10(View v){FragmentMain.player.addHPS10(v);}
+
+    public void addMD1(View v){FragmentMain.player.addMD1(v);}
+
+    public void addMD5(View v){FragmentMain.player.addMD5(v);}
+
+    public void addMD10(View v){FragmentMain.player.addMD10(v);}
+
+    public void addSD1(View v){FragmentMain.player.addSD1(v);}
+
+    public void addSD5(View v){FragmentMain.player.addSD5(v);}
+
+    public void addSD10(View v){FragmentMain.player.addSD10(v);}
+
+    public void addSHS1(View v){FragmentMain.player.addSHS1(v);}
+
+    public void addSHS5(View v){FragmentMain.player.addSHS5(v);}
+
+    public void addSHS10(View v){FragmentMain.player.addSHS10(v);}
 
     public void SelectItem(int position) {
 
@@ -147,12 +181,24 @@ public class MainActivity extends FragmentActivity {
                         .getImgResID());
                 break;
             case 3:
-                fragment = new FragmentStats();
-                args.putString(FragmentStats.ITEM_NAME, dataList.get(position)
+                if (fstats == null) {
+                    fstats = new FragmentStats();
+                }
+                args.putString(FragmentMain.ITEM_NAME, dataList.get(position)
                         .getItemName());
-                args.putInt(FragmentStats.IMAGE_RESOURCE_ID, dataList.get(position)
+                args.putInt(FragmentMain.IMAGE_RESOURCE_ID, dataList.get(position)
                         .getImgResID());
-                break;
+
+                fstats.setArguments(args);
+                frgManager = getFragmentManager();
+                frgManager.beginTransaction().replace(R.id.content_frame, fstats)
+                        .commit();
+
+                mDrawerList.setItemChecked(position, true);
+                setTitle(dataList.get(position).getItemName());
+                mDrawerLayout.closeDrawer(mDrawerList);
+
+                return;
             case 4:
                 fragment = new FragmentMain();
                 args.putString(FragmentMain.ITEM_NAME, dataList.get(position)

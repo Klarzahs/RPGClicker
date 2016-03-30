@@ -27,7 +27,8 @@ public class Monster {
     }
 
     public void attack(){
-        player.setHp(player.getHp() - ((int)(dmg / player.getDeffBonus())));
+        int tdmg = ((int)(dmg / player.getDeffBonus()) - Player.hpslvl);
+        player.setHp(player.getHp() - tdmg);
     }
 
     public void getAttacked(int dmg){
