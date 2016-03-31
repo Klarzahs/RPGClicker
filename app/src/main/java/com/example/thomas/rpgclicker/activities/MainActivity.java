@@ -29,7 +29,7 @@ import com.example.thomas.rpgclicker.processes.MonsterThread;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity{
 
     private FragmentMain fmain;
     private FragmentStats fstats;

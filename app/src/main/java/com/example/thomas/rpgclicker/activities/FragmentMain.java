@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -18,7 +19,7 @@ import com.example.thomas.rpgclicker.money.MoneyHandler;
 import com.example.thomas.rpgclicker.processes.MonsterThread;
 import com.example.thomas.rpgclicker.ui.DrawingPanel;
 
-public class FragmentMain extends Fragment {
+public class FragmentMain extends Fragment{
 
     public static final String IMAGE_RESOURCE_ID = "iconResourceID";
     public static final String ITEM_NAME = "itemName";
@@ -51,6 +52,7 @@ public class FragmentMain extends Fragment {
 
         ViewGroup viewg = (ViewGroup)inflater.inflate(R.layout.fragment_layout_main, container,
                 false);
+
 
         panel = new DrawingPanel(getActivity(), this);
         panel.setPadding(0,0,0,0);

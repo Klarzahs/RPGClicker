@@ -4,6 +4,9 @@ import android.util.Log;
 
 import com.example.thomas.rpgclicker.Monster;
 import com.example.thomas.rpgclicker.Player;
+import com.example.thomas.rpgclicker.ui.DrawingPanel;
+
+import java.util.Random;
 
 /**
  * Created by Thomas on 28.03.2016.
@@ -38,6 +41,12 @@ public class MonsterThread implements Runnable{
                     monster.getAttacked(Player.dpslvl);
                     lastTime = System.currentTimeMillis();
                     //Log.d("MTHREAD", "Monster attacked");
+
+                    Random r = new Random();
+                    int rand = r.nextInt(100) + 1;
+                    if(rand < 5){
+                        DrawingPanel.riposte();
+                    }
                 }
                 try {
                     Thread.sleep(10);

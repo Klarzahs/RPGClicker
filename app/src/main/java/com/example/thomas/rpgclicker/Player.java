@@ -19,11 +19,11 @@ public class Player {
     private int dmgSpell = 50;
     private int healSpell = 30;
 
-    public static int dpslvl = 1;
-    public static int hpslvl = 1;
-    public static int meelelvl = 1;
-    public static int spelldlvl = 1;
-    public static int spellhlvl = 1;
+    public static int dpslvl = 0;
+    public static int hpslvl = 0;
+    public static int meelelvl = 0;
+    public static int spelldlvl = 0;
+    public static int spellhlvl = 0;
 
     public Player(MoneyHandler mh){
         this.mh = mh;
