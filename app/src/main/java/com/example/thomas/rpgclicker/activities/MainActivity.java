@@ -33,6 +33,7 @@ public class MainActivity extends FragmentActivity{
 
     private FragmentMain fmain;
     private FragmentStats fstats;
+    private FragmentInventory fInventory;
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -59,9 +60,10 @@ public class MainActivity extends FragmentActivity{
                 GravityCompat.START);
 
         dataList.add(new DrawerItem("Main", R.drawable.main));
-        dataList.add(new DrawerItem("Weapons", R.drawable.weapons));
-        dataList.add(new DrawerItem("Armor", R.drawable.armor));
+        dataList.add(new DrawerItem("Weapon Shop", R.drawable.sword));
+        dataList.add(new DrawerItem("Armory", R.drawable.armor));
         dataList.add(new DrawerItem("Stats", R.drawable.stats));
+        dataList.add(new DrawerItem("Inventory", R.drawable.inventory_icon));
         dataList.add(new DrawerItem("Leaderboard", R.drawable.leaderboard));
 
         adapter = new CustomDrawerAdapter(this, R.layout.custom_drawer_item,
@@ -97,7 +99,8 @@ public class MainActivity extends FragmentActivity{
         }
     }
 
-    // deferer onCLickListener
+    // deferrer onCLickListener
+    //TODO: Make better :D
     // to Fragment Main:
     public void meeleAttack(View v){
         FragmentMain.panel.meeleAttack();
@@ -200,6 +203,25 @@ public class MainActivity extends FragmentActivity{
 
                 return;
             case 4:
+                if (fInventory == null) {
+                    fInventory = new FragmentInventory();
+                }
+                args.putString(FragmentMain.ITEM_NAME, dataList.get(position)
+                        .getItemName());
+                args.putInt(FragmentMain.IMAGE_RESOURCE_ID, dataList.get(position)
+                        .getImgResID());
+
+                fInventory.setArguments(args);
+                frgManager = getFragmentManager();
+                frgManager.beginTransaction().replace(R.id.content_frame, fInventory)
+                        .commit();
+
+                mDrawerList.setItemChecked(position, true);
+                setTitle(dataList.get(position).getItemName());
+                mDrawerLayout.closeDrawer(mDrawerList);
+
+                return;
+            case 5:
                 fragment = new FragmentMain();
                 args.putString(FragmentMain.ITEM_NAME, dataList.get(position)
                         .getItemName());

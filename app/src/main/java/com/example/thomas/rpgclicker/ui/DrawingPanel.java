@@ -283,6 +283,9 @@ public class DrawingPanel extends SurfaceView implements SurfaceHolder.Callback,
                     synchronized (_surfaceHolder) {
                         postInvalidate();
                     }
+                    Thread.sleep(10);
+                } catch(Exception e){
+                    e.printStackTrace();
                 } finally {
                     if (c != null) {
                         _surfaceHolder.unlockCanvasAndPost(c);
